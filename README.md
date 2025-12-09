@@ -1,64 +1,95 @@
 # GitHub Issue Assistant
 
-This is a web application that helps analyze GitHub issues using AI. It uses the Google Gemini API to read an issue and tell you what type of issue it is, how important it is, and give a summary.
+A full-stack application that leverages the Google Gemini LLM to analyze, prioritize, and summarize GitHub issues. This tool automates the triage process, helping maintainers save time by providing instant context and actionable labels.
 
-## Features
+## 🎯 Project Goal
 
-*   **AI Analysis**: Uses Google Gemini to read issues.
-*   **Simple Interface**: Easy to use web interface.
-*   **Fast**: Caches results so you don't have to wait if you analyze the same issue twice.
+The primary goal of this project was to build a vertically integrated AI application that solves a real-world problem: **Information Overload in Open Source**.
 
-## Project Structure
+By piping raw GitHub issue data into a structured LLM prompt, this assistant transforms unstructured text into structured JSON data (priority scores, summaries, impact analysis) that can be easily consumed by developers.
 
-*   `backend/`: Contains the Python FastAPI server.
-*   `frontend/`: Contains the HTML/CSS/JS for the website.
+## 🛠️ Technical Stack
 
-## Setup Instructions
+*   **Backend**: Python 3.12+, FastAPI (for asynchronous request handling)
+*   **AI Engine**: Google Gemini 1.5/2.0 Flash (via `google-generativeai` SDK)
+*   **Frontend**: Vanilla JavaScript & CSS (No heavy frameworks, focused on performance)
+*   **Networking**: `httpx` for async GitHub API calls
+*   **State Management**: In-memory LRU-style caching
+
+## 🏗️ Architecture & Design Decisions
+
+### 1. Asynchronous Backend (FastAPI)
+I chose FastAPI over Flask/Django because LLM and GitHub API requests are I/O bound. FastAPI's `async/await` support allows the server to handle multiple analysis requests concurrently without blocking the main thread, which is critical for an API dependent on third-party services.
+
+### 2. Prompt Engineering Strategy
+The core intelligence lives in `backend/llm_analyzer.py`. I implemented a **Few-Shot Prompting** strategy:
+*   Instead of asking the model generically to "analyze this," I provide it with concrete examples of input/output pairs.
+*   The prompt enforces a strict JSON schema output, ensuring the frontend never breaks due to malformed AI responses.
+*   I specifically tune the `temperature` to `0.1` to ensure deterministic, factual results rather than creative hallucinations.
+
+### 3. Smart Caching
+To respect API rate limits and reduce latency, I implemented a custom caching layer (`backend/app.py`). It stores analysis results indexed by `repo_url + issue_number`. This means repeated requests for the same issue are instant (0ms latency), dramatically improving the user experience for popular issues.
+
+### 4. Zero-Dependency Frontend
+For the UI, I avoided heavy bundles like React or Angular. By using modern Vanilla JS and CSS Variables:
+*   The site loads instantly.
+*   The code is cleaner and easier to audit.
+*   It demonstrates core understanding of the DOM and CSS Grid/Flexbox without relying on abstractions.
+
+## 🚀 Setup & Installation
 
 ### Prerequisites
+*   Python 3.9+
+*   A Google Gemini API Key
 
-*   Python 3.9 or higher
-*   Google Gemini API Key
+### Backend Setup
+1.  Navigate to the backend directory:
+    ```bash
+    cd backend
+    ```
+2.  Create and activate a virtual environment:
+    ```bash
+    python -m venv venv
+    source venv/bin/activate  # On Windows: venv\Scripts\activate
+    ```
+3.  Install dependencies:
+    ```bash
+    pip install -r requirements.txt
+    ```
+4.  Configure your environment in the project root:
+    ```bash
+    # Create a .env file in the root github-issue-assistant/ folder
+    echo "GEMINI_API_KEY=your_actual_api_key" > .env
+    ```
+5.  Start the server:
+    ```bash
+    python app.py
+    ```
 
-### 1. Backend Setup
+### Frontend Setup
+1.  Open a new terminal and navigate to the frontend:
+    ```bash
+    cd frontend
+    ```
+2.  Serve the static files (using Python's built-in server):
+    ```bash
+    python -m http.server 3000
+    ```
+3.  Open `http://localhost:3000` in your browser.
 
-Go to the backend folder and install the requirements:
+## 🧪 Usage
 
-```bash
-cd backend
-python -m venv venv
-source venv/bin/activate  # Windows: venv\Scripts\activate
-pip install -r requirements.txt
-```
+1.  Paste a GitHub repository URL (e.g., `https://github.com/facebook/react`).
+2.  Enter an issue number (e.g., `28858`).
+3.  Click **Analyze**.
+4.  The system will fetch the raw data, process it through the LLM pipeline, and render a complete report.
 
-Create a file named `.env` in the main folder (not backend) and add your API key:
+## 🔮 Future Improvements
 
-```
-GEMINI_API_KEY=your_key_here
-```
-
-Start the server:
-
-```bash
-python app.py
-```
-
-### 2. Frontend Setup
-
-Open a new terminal, go to the frontend folder, and start a simple server:
-
-```bash
-cd frontend
-python -m http.server 3000
-```
-
-### 3. Usage
-
-Open your browser and go to `http://localhost:3000`. Enter a GitHub repository URL and an issue number to analyze it.
-
-## API Endpoints
-
-*   `POST /api/analyze`: Analyzes an issue. requires `repo_url` and `issue_number`.
+If I were to expand this project, I would focus on:
+1.  **RAG (Retrieval Augmented Generation)**: Indexing the entire repository codebase so the AI can check if the issue relates to specific files.
+2.  **Webhook Integration**: Automatically analyzing issues as soon as they are opened on GitHub via Webhooks.
+3.  **Database Layer**: Moving from in-memory caching to Redis for persistence across server restarts.
 
 ## License
 
