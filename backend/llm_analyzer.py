@@ -49,11 +49,11 @@ class LLMAnalyzer:
 
 Required JSON Format:
 {{
-  "summary": "A concise one-sentence summary of the issue",
+  "summary": "A comprehensive, multi-sentence paragraph (approx 50-70 words) fully explaining the issue context, the problem, and the proposed solution.",
   "type": "One of: bug, feature_request, documentation, question, or other",
-  "priority_score": "A number from 1-5 where 1=low, 2=minor, 3=moderate, 4=high, 5=critical. Include brief justification.",
+  "priority_score": "A number from 1-5 where 1=low, 2=minor, 3=moderate, 4=high, 5=critical. Include a full sentence justification.",
   "suggested_labels": ["2-3 relevant labels"],
-  "potential_impact": "Brief description of potential user impact if this is a bug or important issue"
+  "potential_impact": "A detailed paragraph explaining the specific consequences for users, developers, and the business if this is not addressed."
 }}
 
 **Few-Shot Examples:**

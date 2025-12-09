@@ -180,9 +180,9 @@ async def clear_cache():
 
 
 if __name__ == "__main__":
-    print("🚀 Starting GitHub Issue Assistant API...")
-    print(f"📍 Server running at http://{Config.HOST}:{Config.PORT}")
-    print(f"📚 API documentation at http://{Config.HOST}:{Config.PORT}/docs")
+    print("Starting GitHub Issue Assistant API...")
+    print(f"Server running at http://{Config.HOST}:{Config.PORT}")
+    print(f"API documentation at http://{Config.HOST}:{Config.PORT}/docs")
     
     uvicorn.run(
         "app:app",

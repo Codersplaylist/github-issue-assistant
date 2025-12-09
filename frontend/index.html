@@ -1,24 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="AI-powered GitHub issue analysis and prioritization assistant">
     <title>GitHub Issue Assistant | AI-Powered Analysis</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=5">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
+
 <body>
     <div class="container">
         <!-- Header Section -->
         <header class="header">
             <div class="logo">
                 <svg class="logo-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                    <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                    <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
                 </svg>
                 <h1>GitHub Issue Assistant</h1>
             </div>
@@ -31,46 +36,39 @@
             <section class="input-section">
                 <div class="card">
                     <h2 class="section-title">Analyze an Issue</h2>
-                    
+
                     <form id="analyzeForm">
                         <div class="form-group">
                             <label for="repoUrl">
                                 <svg class="input-icon" viewBox="0 0 24 24" fill="none">
-                                    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path
+                                        d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"
+                                        stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" />
                                 </svg>
                                 Repository URL
                             </label>
-                            <input 
-                                type="text" 
-                                id="repoUrl" 
-                                name="repoUrl" 
-                                placeholder="https://github.com/facebook/react"
-                                required
-                            >
+                            <input type="text" id="repoUrl" name="repoUrl"
+                                placeholder="https://github.com/facebook/react" required>
                         </div>
 
                         <div class="form-group">
                             <label for="issueNumber">
                                 <svg class="input-icon" viewBox="0 0 24 24" fill="none">
-                                    <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
-                                    <path d="M12 16V12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                                    <path d="M12 8H12.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                    <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" />
+                                    <path d="M12 16V12" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                                    <path d="M12 8H12.01" stroke="currentColor" stroke-width="2"
+                                        stroke-linecap="round" />
                                 </svg>
                                 Issue Number
                             </label>
-                            <input 
-                                type="number" 
-                                id="issueNumber" 
-                                name="issueNumber" 
-                                placeholder="1"
-                                min="1"
-                                required
-                            >
+                            <input type="number" id="issueNumber" name="issueNumber" placeholder="1" min="1" required>
                         </div>
 
                         <button type="submit" class="btn-primary" id="analyzeBtn">
                             <svg class="btn-icon" viewBox="0 0 24 24" fill="none">
-                                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round" />
                             </svg>
                             <span>Analyze Issue</span>
                         </button>
@@ -110,8 +108,10 @@
                         <h2 class="section-title">Analysis Results</h2>
                         <button class="btn-secondary" id="copyBtn">
                             <svg class="btn-icon" viewBox="0 0 24 24" fill="none">
-                                <rect x="9" y="9" width="13" height="13" rx="2" stroke="currentColor" stroke-width="2"/>
-                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" stroke="currentColor" stroke-width="2"/>
+                                <rect x="9" y="9" width="13" height="13" rx="2" stroke="currentColor"
+                                    stroke-width="2" />
+                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" stroke="currentColor"
+                                    stroke-width="2" />
                             </svg>
                             Copy JSON
                         </button>
@@ -127,8 +127,8 @@
             <!-- Error Section -->
             <div class="notification error-notification" id="errorNotification" style="display: none;">
                 <svg class="notification-icon" viewBox="0 0 24 24" fill="none">
-                    <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
-                    <path d="M15 9l-6 6M9 9l6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" />
+                    <path d="M15 9l-6 6M9 9l6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
                 </svg>
                 <div class="notification-content">
                     <p class="notification-title">Error</p>
@@ -140,8 +140,9 @@
             <!-- Success Notification -->
             <div class="notification success-notification" id="successNotification" style="display: none;">
                 <svg class="notification-icon" viewBox="0 0 24 24" fill="none">
-                    <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
-                    <path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" />
+                    <path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
                 </svg>
                 <div class="notification-content">
                     <p class="notification-title">Success</p>
@@ -153,10 +154,11 @@
 
         <!-- Footer -->
         <footer class="footer">
-            <p>Built with ❤️ for Seedling Labs | Powered by Google Gemini</p>
+            <p>Built with ❤️ for Seedling Labs</p>
         </footer>
     </div>
 
-    <script src="script.js"></script>
+    <script src="script.js?v=5"></script>
 </body>
+
 </html>

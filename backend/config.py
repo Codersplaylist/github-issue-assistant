@@ -21,7 +21,7 @@ class Config:
     PORT = int(os.getenv("PORT", "8000"))
     
     # LLM Settings
-    LLM_MODEL = os.getenv("LLM_MODEL", "gemini-1.5-flash")
+    LLM_MODEL = "gemini-flash-latest" # Using latest stable flash model for best free tier quota
     LLM_TEMPERATURE = float(os.getenv("LLM_TEMPERATURE", "0.1"))
     
     # Cache Settings

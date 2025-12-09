@@ -32,7 +32,7 @@ const exampleChips = document.querySelectorAll('.chip');
  */
 function init() {
     analyzeForm.addEventListener('submit', handleSubmit);
-    copyBtn.addEventListener('copy', handleCopyJSON);
+    // copyBtn.addEventListener('copy', handleCopyJSON); // Removed: handleCopyJSON is not defined and causing script error
 
     // Example chips click handlers
     exampleChips.forEach(chip => {
