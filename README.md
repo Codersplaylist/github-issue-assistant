@@ -16,6 +16,10 @@ By piping raw GitHub issue data into a structured LLM prompt, this assistant tra
 *   **Networking**: `httpx` for async GitHub API calls
 *   **State Management**: In-memory LRU-style caching
 
+## High level diagram
+<img width="1280" height="507" alt="image" src="https://github.com/user-attachments/assets/fccb6eb5-ee68-4ce8-8447-6a0807e69828" />
+
+
 ## 🏗️ Architecture & Design Decisions
 
 ### 1. Asynchronous Backend (FastAPI)
