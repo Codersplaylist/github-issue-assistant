@@ -17,7 +17,8 @@ By piping raw GitHub issue data into a structured LLM prompt, this assistant tra
 *   **State Management**: In-memory LRU-style caching
 
 ## High level diagram
-<img width="1280" height="507" alt="image" src="https://github.com/user-attachments/assets/fccb6eb5-ee68-4ce8-8447-6a0807e69828" />
+<img width="1009" height="407" alt="Screenshot 2025-12-19 at 02 24 11" src="https://github.com/user-attachments/assets/0d3434af-3f5a-4b68-8a73-f1d3e64b4ae4" />
+
 
 
 ## 🏗️ Architecture & Design Decisions
