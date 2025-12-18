@@ -56,7 +56,7 @@ Required JSON Format:
   "potential_impact": "A detailed paragraph explaining the specific consequences for users, developers, and the business if this is not addressed."
 }}
 
-**Few-Shot Examples:**
+
 
 Example 1 - Bug Report:
 Issue Title: "Application crashes when clicking submit button"
