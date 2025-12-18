@@ -6,7 +6,7 @@ Welcome! This guide will walk you through **everything** step-by-step. Don't wor
 
 ## 🎯 The Big Picture: What We're Going to Do
 
-1. **Get an API key** from Google (free, takes 2 minutes)
+1. **Get an API key** from Google
 2. **Test your app locally** to make sure it works
 3. **Put your code on GitHub** so you can share it
 4. **Submit the GitHub link** to Seedling Labs
