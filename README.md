@@ -14,7 +14,7 @@ By piping raw GitHub issue data into a structured LLM prompt, this assistant tra
 *   **AI Engine**: Google Gemini 1.5/2.0 Flash (via `google-generativeai` SDK)
 *   **Frontend**: Vanilla JavaScript & CSS (No heavy frameworks, focused on performance)
 *   **Networking**: `httpx` for async GitHub API calls
-*   **State Management**: In-memory LRU-style caching
+*   **State Management**: In-memory caching
 
 ## High level diagram
 <img width="1009" height="407" alt="Screenshot 2025-12-19 at 02 24 11" src="https://github.com/user-attachments/assets/0d3434af-3f5a-4b68-8a73-f1d3e64b4ae4" />
@@ -28,12 +28,12 @@ I chose FastAPI over Flask/Django because LLM and GitHub API requests are I/O bo
 
 ### 2. Prompt Engineering Strategy
 The core intelligence lives in `backend/llm_analyzer.py`. I implemented a **Few-Shot Prompting** strategy:
-*   Instead of asking the model generically to "analyze this," I provide it with concrete examples of input/output pairs.
+*   Instead of asking the model generically to "analyze this," I provide it with concrete examples of input/output pairs for a more accurate priority score.
 *   The prompt enforces a strict JSON schema output, ensuring the frontend never breaks due to malformed AI responses.
 *   I specifically tune the `temperature` to `0.1` to ensure deterministic, factual results rather than creative hallucinations.
 
 ### 3. Smart Caching
-To respect API rate limits and reduce latency, I implemented a custom caching layer (`backend/app.py`). It stores analysis results indexed by `repo_url + issue_number`. This means repeated requests for the same issue are instant (0ms latency), dramatically improving the user experience for popular issues.
+To respect API rate limits and reduce latency, I implemented a custom caching layer (`backend/app.py`). It stores analysis results indexed by `repo_url + issue_number`. This means repeated requests for the same issue are instant (0ms latency), dramatically improving the user experience for popular issues.(TTL=1hr)
 
 ### 4. Zero-Dependency Frontend
 For the UI, I avoided heavy bundles like React or Angular. By using modern Vanilla JS and CSS Variables:
@@ -47,55 +47,19 @@ For the UI, I avoided heavy bundles like React or Angular. By using modern Vanil
 *   Python 3.9+
 *   A Google Gemini API Key
 
-### Backend Setup
-1.  Navigate to the backend directory:
-    ```bash
-    cd backend
-    ```
-2.  Create and activate a virtual environment:
-    ```bash
-    python -m venv venv
-    source venv/bin/activate  # On Windows: venv\Scripts\activate
-    ```
-3.  Install dependencies:
-    ```bash
-    pip install -r requirements.txt
-    ```
-4.  Configure your environment in the project root:
-    ```bash
-    # Create a .env file in the root github-issue-assistant/ folder
-    echo "GEMINI_API_KEY=your_actual_api_key" > .env
-    ```
-5.  Start the server:
-    ```bash
-    python app.py
-    ```
-
-### Frontend Setup
-1.  Open a new terminal and navigate to the frontend:
-    ```bash
-    cd frontend
-    ```
-2.  Serve the static files (using Python's built-in server):
-    ```bash
-    python -m http.server 3000
-    ```
-3.  Open `http://localhost:3000` in your browser.
-
-## 🧪 Usage
+## Usage
 
 1.  Paste a GitHub repository URL (e.g., `https://github.com/facebook/react`).
 2.  Enter an issue number (e.g., `28858`).
 3.  Click **Analyze**.
 4.  The system will fetch the raw data, process it through the LLM pipeline, and render a complete report.
+## Screenshot
+<img width="1432" height="709" alt="Screenshot 2025-12-19 at 02 29 48" src="https://github.com/user-attachments/assets/8d6eec1b-3170-4557-a375-866005d016c2" />
+<img width="1193" height="763" alt="Screenshot 2025-12-19 at 02 30 16" src="https://github.com/user-attachments/assets/d3bb8b7d-de86-4382-adfe-920454d91451" />
 
-## 🔮 Future Improvements
+## Future Improvements
 
 If I were to expand this project, I would focus on:
 1.  **RAG (Retrieval Augmented Generation)**: Indexing the entire repository codebase so the AI can check if the issue relates to specific files.
 2.  **Webhook Integration**: Automatically analyzing issues as soon as they are opened on GitHub via Webhooks.
 3.  **Database Layer**: Moving from in-memory caching to Redis for persistence across server restarts.
-
-## License
-
-MIT License.
